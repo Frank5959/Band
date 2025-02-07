@@ -1,24 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useCartStore } from "../store/cartStore.ts";
 
-interface ProductProps {
-  product: {
-    id: number;
-    title: string;
-    price: number;
-    image: string;
-  };
-}
+const ProductCard = ({ product }) => {
+  const addToCart = useCartStore((state) => state.addToCart);
 
-const ProductCard: React.FC<ProductProps> = ({ product }) => {
   return (
     <div className="product-card">
-      <img src={product.image} alt={product.title} />
-      <h3>{product.title}</h3>
-      <p>${product.price.toFixed(2)}</p>
-      <Link to={`/product/${product.id}`} className="view-details">
-        View Details
+      <Link to={`/product/${product.id}`}>
+        <img src={product.image} alt={product.name} />
+        <h3>{product.name}</h3>
+        <p>${product.price}</p>
       </Link>
+      <button onClick={() => addToCart(product)}>Add to Cart</button>
     </div>
   );
 };

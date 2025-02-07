@@ -1,21 +1,20 @@
 import React from "react";
-import "../styles/global.css";
+import { Link } from "react-router-dom";
+import { useCartStore } from "../store/cartStore.ts";
 
-const Navbar: React.FC = () => {
+const Navbar = () => {
+  const cartCount = useCartStore((state) => state.items.length);
   return (
     <nav className="navbar">
       <div className="logo">
-        <a href="/">Company Name</a>
+        <Link to="/">MyStore</Link>
       </div>
-      <ul className="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/products">Products</a></li>
-        <li><a href="/admin/login">Admin Login</a></li>
-      </ul>
+      <div className="nav-links">
+        <Link to="/">Home</Link>
+        <Link to="/admin">Admin</Link>
+      </div>
       <div className="cart-icon">
-        <a href="/cart">
-          🛒 <span className="cart-count">0</span>
-        </a>
+        <Link to="/cart">🛒 ({cartCount})</Link>
       </div>
     </nav>
   );
